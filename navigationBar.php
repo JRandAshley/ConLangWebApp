@@ -9,8 +9,6 @@
           echo "Error";
       }
       else{
-        //$obj = sqlsrv_fetch_array($stmt,SQLSRV_FETCH_ASSOC)['PhonemeID'];
-        //echo gettype($obj);
           while($obj = sqlsrv_fetch_array($stmt,SQLSRV_FETCH_ASSOC)) {
             echo $obj['LanguageName'];
           }
