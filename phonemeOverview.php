@@ -12,7 +12,7 @@
 <html>
 <head>
     <meta charset="UTF-8" />
-    <title>Language Overview Page</title>
+    <title>Phoneme Overview Page</title>
     <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="css/conlang.css">
 </head>

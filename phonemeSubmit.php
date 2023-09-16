@@ -59,7 +59,31 @@
         }
     }
     else if($_POST["effect"] == "edit") {
-        //test
+        $phonemeID = $_POST["phonemeID"];
+        if($_POST["phonemeCategory"] == "C") {
+            $phonemeName = $_POST["voicing"] . " " . $_POST["place"] . " " . $_POST["manner"];
+            $place = $_POST["place"];
+            $manner = $_POST["manner"];
+            $voicing = $_POST["voicing"];
+
+            $tsql = "update tblPhonemes set PhonemeName=?, Place=?, Manner=?, Voicing=? where PhonemeID = ?;";
+            $params = array($phonemeName, $place, $manner, $voicing, $phonemeID);
+        }
+        else if ($_POST["phonemeCategory"] == "V") {
+            $phonemeName = $_POST["height"] . " " . $_POST["length"] . " " . $_POST["rounding"] . " vowel";
+            $height = $_POST["height"];
+            $length = $_POST["length"];
+            $rounding = $_POST["rounding"];
+
+            $tsql = "update tblPhonemes set PhonemeName=?, Height=?, VLength=?, Rounding=? where PhonemeID = ?;";
+            $params = array($phonemeName, $height, $length, $rounding, $phonemeID);
+        }
+
+        $stmt = sqlsrv_query($conn,$tsql,$params);
+
+        if( $stmt === false ) {
+            die( print_r( sqlsrv_errors(), true));
+        }
     }
     else if($_POST["effect"] == "delete") {
         $phonemeID = $_POST["phonemeID"];
