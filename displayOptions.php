@@ -69,7 +69,7 @@
         "close back unrounded vowel" => "&#623;",
         "close back rounded vowel" => "u",
         "near-close near-front unrounded vowel" => "&#618;",
-        "near-close near front rounded vowel" => "&#655;",
+        "near-close near-front rounded vowel" => "&#655;",
         "near-close near-back rounded vowel" => "&#650;",
         "close-mid front unrounded vowel" => "e",
         "close-mid front rounded vowel" => "&#248;",

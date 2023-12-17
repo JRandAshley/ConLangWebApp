@@ -1,5 +1,6 @@
 <?php
     include 'displayOptions.php';
+    //include 'js/jquery-3.7.1.min.js';
     require 'includes/dbh.inc.php';
     session_start();
 
@@ -15,6 +16,7 @@
     <title>Phoneme Overview Page</title>
     <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="css/conlang.css">
+    <script scr="js/jquery-3.7.1.min.js"></script>
 </head>
     <body class="container" style="background-color:black; margin-top:20px;">
         <?php
@@ -178,6 +180,201 @@
         ?>
         </tbody>
         </table>
+
+        <hr>
+
+        <?php
+            $cChartPhonemes = array();
+            $vChartPhonemes = array();
+
+            $cPlaces = array();
+            $cManners = array();
+
+            $hasBilabial = false;
+            $hasLabiodental = false;
+            $hasDental = false;
+            $hasAlveolar = false;
+            $hasPostalveolar = false;
+            $hasRetroflex = false;
+            $hasPalatal = false;
+            $hasVelar = false;
+            $hasUvular = false;
+            $hasPharyngeal = false;
+            $hasGlottal = false;
+
+            $hasPlosive = false;
+            $hasNasal = false;
+            $hasTrill = false;
+            $hasTapOrFlap = false;
+            $hasFricative = false;
+            $hasLateralFricative = false;
+            $hasApproximant = false;
+            $hasLateralApproximant = false;
+
+
+            $hasFront = false;
+            $hasNearFront = false;
+            $hasCentral = false;
+            $hasNearBack = false;
+            $hasBack = false;
+
+            $hasClose = false;
+            $hasNearClose = false;
+            $hasCloseMid = false;
+            $hasMid = false;
+            $hasOpenMid = false;
+            $hasNearOpen = false;
+            $hasOpen = false;
+
+
+            foreach($displayPhonemes as $phoneme){
+                if($phoneme["category"] == "C"){
+                    array_push($cChartPhonemes, $phoneme);
+
+                    //if (in_array("Glenn", $people))
+                    if($phoneme["place"] == "bilabial"){
+                        $hasBilabial = true;
+                        if (in_array($phoneme["place"], $cPlaces) == false){
+                            array_push($cPlaces, $phoneme["place"]);  
+                        }
+                    } else if ($phoneme["place"] == "labiodental"){
+                        $hasLabiodental = true;
+                        if (in_array($phoneme["place"], $cPlaces) == false){
+                            array_push($cPlaces, $phoneme["place"]);  
+                        }
+                    } else if ($phoneme["place"] == "dental"){
+                        $hasDental = true;
+                        if (in_array($phoneme["place"], $cPlaces) == false){
+                            array_push($cPlaces, $phoneme["place"]);  
+                        }
+                    } else if ($phoneme["place"] == "alveolar"){
+                        $hasAlveolar = true;
+                        if (in_array($phoneme["place"], $cPlaces) == false){
+                            array_push($cPlaces, $phoneme["place"]);  
+                        }
+                    } else if ($phoneme["place"] == "postalveolar"){
+                        $hasPostalveolar = true;
+                        if (in_array($phoneme["place"], $cPlaces) == false){
+                            array_push($cPlaces, $phoneme["place"]);  
+                        }
+                    } else if ($phoneme["place"] == "retroflex"){
+                        $hasRetroflex = true;
+                        if (in_array($phoneme["place"], $cPlaces) == false){
+                            array_push($cPlaces, $phoneme["place"]);  
+                        }
+                    } else if ($phoneme["place"] == "palatal"){
+                        $hasPalatal = true;
+                        if (in_array($phoneme["place"], $cPlaces) == false){
+                            array_push($cPlaces, $phoneme["place"]);  
+                        }
+                    } else if ($phoneme["place"] == "velar"){
+                        $hasVelar = true;
+                        if (in_array($phoneme["place"], $cPlaces) == false){
+                            array_push($cPlaces, $phoneme["place"]);  
+                        }
+                    } else if ($phoneme["place"] == "uvular"){
+                        $hasUvular = true;
+                        if (in_array($phoneme["place"], $cPlaces) == false){
+                            array_push($cPlaces, $phoneme["place"]);  
+                        }
+                    } else if ($phoneme["place"] == "pharyngeal"){
+                        $hasPharyngeal = true;
+                        if (in_array($phoneme["place"], $cPlaces) == false){
+                            array_push($cPlaces, $phoneme["place"]);  
+                        }
+                    } else if ($phoneme["place"] == "glottal"){
+                        $hasGlottal = true;
+                        if (in_array($phoneme["place"], $cPlaces) == false){
+                            array_push($cPlaces, $phoneme["place"]);  
+                        }
+                    }
+
+                    if($phoneme["manner"] == "plosive"){
+                        $hasPlosive = true;
+                        if (in_array($phoneme["manner"], $cManners) == false){
+                            array_push($cManners, $phoneme["manner"]); 
+                        }
+                    } else if ($phoneme["manner"] == "nasal"){
+                        $hasNasal = true;
+                        if (in_array($phoneme["manner"], $cManners) == false){
+                            array_push($cManners, $phoneme["manner"]); 
+                        }
+                    } else if ($phoneme["manner"] == "trill"){
+                        $hasTrill = true;
+                        if (in_array($phoneme["manner"], $cManners) == false){
+                            array_push($cManners, $phoneme["manner"]); 
+                        }
+                    } else if ($phoneme["manner"] == "tap or flap"){
+                        $hasTapOrFlap = true;
+                        if (in_array($phoneme["manner"], $cManners) == false){
+                            array_push($cManners, $phoneme["manner"]); 
+                        }
+                    } else if ($phoneme["manner"] == "fricative"){
+                        $hasFricative = true;
+                        if (in_array($phoneme["manner"], $cManners) == false){
+                            array_push($cManners, $phoneme["manner"]); 
+                        }
+                    } else if ($phoneme["manner"] == "lateral fricative"){
+                        $hasLateralFricative = true;
+                        if (in_array($phoneme["manner"], $cManners) == false){
+                            array_push($cManners, $phoneme["manner"]); 
+                        }
+                    } else if ($phoneme["manner"] == "approximant"){
+                        $hasApproximant = true;
+                        if (in_array($phoneme["manner"], $cManners) == false){
+                            array_push($cManners, $phoneme["manner"]); 
+                        }
+                    } else if ($phoneme["manner"] == "lateral approximant"){
+                        $hasLateralApproximant = true;
+                        if (in_array($phoneme["manner"], $cManners) == false){
+                            array_push($cManners, $phoneme["manner"]); 
+                        }
+                    }
+                }
+            }
+        ?>
+
+        <div class="rounded-3 fs-4 text-white" style="background-color: #2c3034; padding: 20px;">
+            <table class="table table-dark table-bordered table-sm" style="font-size: 15px;">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <?php
+                            if($hasBilabial == true) echo '<th scope="col" colspan="2">Bilabial</th>';
+                            if($hasLabiodental == true) echo '<th scope="col" colspan="2">Labiodental</th>';
+                            if($hasDental == true) echo '<th scope="col" colspan="2">Dental</th>';
+                            if($hasAlveolar == true) echo '<th scope="col" colspan="2">Alveolar</th>';
+                            if($hasPostalveolar == true) echo '<th scope="col" colspan="2">Postalveolar</th>';
+                            if($hasRetroflex == true) echo '<th scope="col" colspan="2">Retroflex</th>';
+                            if($hasPalatal == true) echo '<th scope="col" colspan="2">Palatal</th>';
+                            if($hasVelar == true) echo '<th scope="col" colspan="2">Velar</th>';
+                            if($hasUvular == true) echo '<th scope="col" colspan="2">Uvular</th>';
+                            if($hasPharyngeal == true) echo '<th scope="col" colspan="2">Pharyngeal</th>';
+                            if($hasGlottal == true) echo '<th scope="col" colspan="2">Glottal</th>';
+                        ?>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php
+                    if($hasPlosive == true) {
+                        echo '<tr> <th scope="row">Plosive</th>';
+                        foreach($cPlaces as $place){
+                            echo "<td id='plosivevoicless'></td>";
+                            echo "<td id='plosivevoiced'></td>";
+                            echo $place;//fix repeats
+                        }
+                    }
+                    if($hasNasal == true) echo '<tr> <th scope="row">Nasal</th>';
+                    if($hasTrill == true) echo '<tr> <th scope="row">Trill</th>';
+                    if($hasTapOrFlap == true) echo '<tr> <th scope="row">Tap or Flap</th>';
+                    if($hasFricative == true) echo '<tr> <th scope="row">Fricative</th>';
+                    if($hasLateralFricative == true) echo '<tr> <th scope="row">Lateral Fricative</th>';
+                    if($hasApproximant == true) echo '<tr> <th scope="row">Approximant</th>';
+                    if($hasLateralApproximant == true) echo '<tr> <th scope="row">Lateral Approximant</th>';
+                    ?>
+                </tbody>
+            </table>
+        </div>
 
         <script scr="js/bootstrap.bundle.min.js"></script>
     </body>
