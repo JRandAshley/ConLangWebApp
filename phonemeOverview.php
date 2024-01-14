@@ -24,6 +24,7 @@
         include "navigationBar.php";
         $displayPhonemes = array();
 
+        //getting the phonemes for selected language
         $tsql = "select * from tblPhonemes where LanguageID='".$languageID."';";
         $stmt = sqlsrv_query($conn,$tsql);
         if($stmt == false){
@@ -73,7 +74,12 @@
                         "rounding"=> $rounding
                     );
                 }
-                $displayPhonemes[] = array_merge($displayPhonemes, $phoneme);
+                $displayPhonemes[] = array_merge($displayPhonemes, $phoneme);//php array of language's phonemes
+                foreach($displayPhonemes as $phoneme){
+                    $tempName = $phoneme["name"];
+                    echo str_replace(' ', '', $tempName);
+                    //echo $tempName;
+                }
             }
         }
         ?>
@@ -184,11 +190,11 @@
         <hr>
 
         <?php
-            $cChartPhonemes = array();
-            $vChartPhonemes = array();
+            $cChartPhonemes = array(); // php array of consonants
+            $vChartPhonemes = array(); // php array of vowels
 
-            $cPlaces = array();
-            $cManners = array();
+            $cPlaces = array(); // php array of all places
+            $cManners = array(); // php array of all manners
 
             $hasBilabial = false;
             $hasLabiodental = false;
@@ -230,8 +236,7 @@
             foreach($displayPhonemes as $phoneme){
                 if($phoneme["category"] == "C"){
                     array_push($cChartPhonemes, $phoneme);
-
-                    //if (in_array("Glenn", $people))
+                    
                     if($phoneme["place"] == "bilabial"){
                         $hasBilabial = true;
                         if (in_array($phoneme["place"], $cPlaces) == false){
@@ -334,6 +339,8 @@
             }
         ?>
 
+
+        <!-- constant table -->
         <div class="rounded-3 fs-4 text-white" style="background-color: #2c3034; padding: 20px;">
             <table class="table table-dark table-bordered table-sm" style="font-size: 15px;">
                 <thead>
@@ -359,18 +366,59 @@
                     if($hasPlosive == true) {
                         echo '<tr> <th scope="row">Plosive</th>';
                         foreach($cPlaces as $place){
-                            echo "<td id='plosivevoicless'></td>";
-                            echo "<td id='plosivevoiced'></td>";
-                            echo $place;//fix repeats
+                            echo "<td id='voiceless".$place."plosive'></td>";
+                            echo "<td id='voiced".$place."plosive'></td>";
                         }
                     }
-                    if($hasNasal == true) echo '<tr> <th scope="row">Nasal</th>';
-                    if($hasTrill == true) echo '<tr> <th scope="row">Trill</th>';
-                    if($hasTapOrFlap == true) echo '<tr> <th scope="row">Tap or Flap</th>';
-                    if($hasFricative == true) echo '<tr> <th scope="row">Fricative</th>';
-                    if($hasLateralFricative == true) echo '<tr> <th scope="row">Lateral Fricative</th>';
-                    if($hasApproximant == true) echo '<tr> <th scope="row">Approximant</th>';
-                    if($hasLateralApproximant == true) echo '<tr> <th scope="row">Lateral Approximant</th>';
+                    if($hasNasal == true) {
+                        echo '<tr> <th scope="row">Nasal</th>';
+                        foreach($cPlaces as $place){
+                            echo "<td id='voiceless".$place."nasal'></td>";
+                            echo "<td id='voiced".$place."nasal'></td>";
+                        }
+                    }
+                    if($hasTrill == true) {
+                        echo '<tr> <th scope="row">Trill</th>';
+                        foreach($cPlaces as $place){
+                            echo "<td id='voiceless".$place."trill'></td>";
+                            echo "<td id='voiced".$place."trill'></td>";
+                        }
+                    }
+                    if($hasTapOrFlap == true) {
+                        echo '<tr> <th scope="row">Tap or Flap</th>';
+                        foreach($cPlaces as $place){
+                            echo "<td id='voiceless".$place."taporflap'></td>";
+                            echo "<td id='voiced".$place."taporflap'></td>";
+                        }
+                    }
+                    if($hasFricative == true) {
+                        echo '<tr> <th scope="row">Fricative</th>';
+                        foreach($cPlaces as $place){
+                            echo "<td id='voiceless".$place."fricative'></td>";
+                            echo "<td id='voiced".$place."fricative'></td>";
+                        }
+                    }
+                    if($hasLateralFricative == true) {
+                        echo '<tr> <th scope="row">Lateral Fricative</th>';
+                        foreach($cPlaces as $place){
+                            echo "<td id='voiceless".$place."lateralfricative'></td>";
+                            echo "<td id='voiced".$place."lateralfricative'></td>";
+                        }
+                    }
+                    if($hasApproximant == true) {
+                        echo '<tr> <th scope="row">Approximant</th>';
+                        foreach($cPlaces as $place){
+                            echo "<td id='voiceless".$place."approximant'></td>";
+                            echo "<td id='voiced".$place."approximant'></td>";
+                        }
+                    }
+                    if($hasLateralApproximant == true) {
+                        echo '<tr> <th scope="row">Lateral Approximant</th>';
+                        foreach($cPlaces as $place){
+                            echo "<td id='voiceless".$place."lateralapproximant'></td>";
+                            echo "<td id='voiced".$place."lateralapproximant'></td>";
+                        }
+                    }
                     ?>
                 </tbody>
             </table>
