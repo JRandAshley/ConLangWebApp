@@ -16,6 +16,7 @@
     <title>Phoneme Overview Page</title>
     <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="css/conlang.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script scr="js/jquery-3.7.1.min.js"></script>
 </head>
     <body class="container" style="background-color:black; margin-top:20px;">
@@ -75,11 +76,12 @@
                     );
                 }
                 $displayPhonemes[] = array_merge($displayPhonemes, $phoneme);//php array of language's phonemes
-                foreach($displayPhonemes as $phoneme){
-                    $tempName = $phoneme["name"];
-                    echo str_replace(' ', '', $tempName);
-                    //echo $tempName;
-                }
+
+                // foreach($displayPhonemes as $phoneme){
+                //     $tempName = $phoneme["name"];
+                //     $tempName = str_replace(' ', '', $tempName);
+                    
+                // }
             }
         }
         ?>
@@ -339,6 +341,36 @@
             }
         ?>
 
+        <script>
+        <?php //php to javascript array for names
+            $cChartNames = [];
+            $vChartNames = [];
+
+            foreach($displayPhonemes as $phoneme){
+                if ($phoneme["category"] == "C"){
+                    $tempName = $phoneme["name"];
+                    $tempNameCompress = str_replace(' ', '', $tempName);
+                    $cChartNames[$tempNameCompress] = $tempName;
+                    //array_push($cChartNames, $tempNameCompress);
+                }
+                else if ($phoneme["category"] == "V"){
+                    $tempName = $phoneme["name"];
+                    $tempNameCompress = str_replace(' ', '', $tempName);
+                    $vChartNames[$tempNameCompress] = $tempName;
+                    //array_push($vChartNames, $tempNameCompress);
+                }
+            };
+
+            $phpCChartNames = json_encode($cChartNames);
+            $phpVChartNames = json_encode($vChartNames);
+
+            echo "var jsCChartNames = ". $phpCChartNames . ";\n";
+            echo "var jsVChartNames = ". $phpVChartNames . ";\n";
+        ?>
+
+        //console.log(jsCChartNames);
+        //console.log(jsVChartNames);
+        </script>
 
         <!-- constant table -->
         <div class="rounded-3 fs-4 text-white" style="background-color: #2c3034; padding: 20px;">
@@ -423,6 +455,54 @@
                 </tbody>
             </table>
         </div>
+
+        <script>
+            // for (let key in jsCChartNames) {
+            //     let value = jsCChartNames[key];
+            //     console.log(key, value);
+            // }
+            <?php
+                $cSymbolsByName = [];
+                foreach($cChartNames as $key => $value){
+                    $tempSymbol = getSymbol("C", "$value");
+                    $cSymbolsByName[$key] = $tempSymbol;
+                    //echo "\$symbolABC = '$tempsymbol';";
+                }
+                $phpCSymbolsByName = json_encode($cSymbolsByName);
+
+                echo "var jsCSymbolsByName = ". $phpCSymbolsByName . ";\n";
+
+                $symbolABC = getSymbol("C", "voiced alveolar plosive");
+                echo "\$symbolABC = '$symbolABC';";
+            ?>
+            //console.log(jsCSymbolsByName);
+        </script>
+        <script>
+
+            $(document).ready(function(){
+                //$htmlABC = '<p>'+$symbolABC+'</p>';
+                //$("#voicedalveolarplosive").html($htmlABC);
+
+                for (let key in jsCSymbolsByName) {
+                    let value = jsCSymbolsByName[key];
+
+                    $htmlTemp = '<p>'+value+'</p>';
+                    $("#"+key+"").html($htmlTemp);
+
+                    //console.log(key, value);
+                }
+            });
+
+            // $(document).ready(function(){
+            //     if (jQuery) {  
+            //     // jQuery is loaded  
+            //     alert("Yeah!");
+            //     } else {
+            //     // jQuery is not loaded
+            //     alert("Doesn't Work");
+            //     }
+            // });
+        </script>
 
         <script scr="js/bootstrap.bundle.min.js"></script>
     </body>
