@@ -633,8 +633,9 @@
 
         <script>
             function showDisplay(key){
-                //alert(key);
-                $phonemeHTMLDisplay = '<div class="rounded-3 fs-4 text-white" style="background-color: #2c3034; padding: 20px;">'+key+'</div>';
+                $symbolToDisplay = jsCSymbolsByName[key.replace(/\s/g, '')];
+                if($symbolToDisplay == undefined){$symbolToDisplay = jsVSymbolsByName[key.replace(/\s/g, '')];}
+                $phonemeHTMLDisplay = '<div class="rounded-3 fs-4 text-white" style="background-color: #2c3034; padding: 20px;"><h1>'+$symbolToDisplay+'</h1> <p>'+key+'</p></div>';
                 $("#currentPhoneme").html($phonemeHTMLDisplay);
             }
             $(document).ready(function(){
