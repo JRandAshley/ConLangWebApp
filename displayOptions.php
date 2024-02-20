@@ -113,5 +113,62 @@
         return $symbol;
     }
 
-    //echo getSymbol("C", "voiceless glottal plosive");
+    function orderForIPAChart($axis, $headers){
+        $orderedArray = [];
+
+        if($axis == "CP"){
+            if(in_array("bilabial", $headers)){
+                array_push($orderedArray, "bilabial");
+            }
+            if(in_array("labiodental", $headers)){
+                array_push($orderedArray, "labiodental");
+            }
+            if(in_array("dental", $headers)){
+                array_push($orderedArray, "dental");
+            }
+            if(in_array("alveolar", $headers)){
+                array_push($orderedArray, "alveolar");
+            }
+            if(in_array("postalveolar", $headers)){
+                array_push($orderedArray, "postalveolar");
+            }
+            if(in_array("retroflex", $headers)){
+                array_push($orderedArray, "retroflex");
+            }
+            if(in_array("palatal", $headers)){
+                array_push($orderedArray, "palatal");
+            }
+            if(in_array("velar", $headers)){
+                array_push($orderedArray, "velar");
+            }
+            if(in_array("uvular", $headers)){
+                array_push($orderedArray, "uvular");
+            }
+            if(in_array("pharyngeal", $headers)){
+                array_push($orderedArray, "pharyngeal");
+            }
+            if(in_array("glottal", $headers)){
+                array_push($orderedArray, "glottal");
+            }
+        } else if($axis == "VL"){
+            if(in_array("front", $headers)){
+                array_push($orderedArray, "front");
+            }
+            if(in_array("near-front", $headers)){
+                array_push($orderedArray, "near-front");
+            }
+            if(in_array("central", $headers)){
+                array_push($orderedArray, "central");
+            }
+            if(in_array("near-back", $headers)){
+                array_push($orderedArray, "near-back");
+            }
+            if(in_array("back", $headers)){
+                array_push($orderedArray, "back");
+            }
+        } else if($axis == "V"){
+            echo("Vowel");
+        }
+        return $orderedArray;
+    }
 ?>

@@ -76,12 +76,6 @@
                     );
                 }
                 $displayPhonemes[] = array_merge($displayPhonemes, $phoneme);//php array of language's phonemes
-
-                // foreach($displayPhonemes as $phoneme){
-                //     $tempName = $phoneme["name"];
-                //     $tempName = str_replace(' ', '', $tempName);
-                    
-                // }
             }
         }
         ?>
@@ -197,6 +191,9 @@
 
             $cPlaces = array(); // php array of all places
             $cManners = array(); // php array of all manners
+
+            $vLengths = array(); // php array of all lengths
+            $vHeights = array(); // php array of all heights
 
             $hasBilabial = false;
             $hasLabiodental = false;
@@ -338,8 +335,82 @@
                         }
                     }
                 }
+
+                if($phoneme["category"] == "V"){
+                    array_push($vChartPhonemes, $phoneme);
+
+                    if($phoneme["length"] == "front"){
+                        $hasFront = true;
+                        if (in_array($phoneme["length"], $vLengths) == false){
+                            array_push($vLengths, $phoneme["length"]);  
+                        }
+                    } else if ($phoneme["length"] == "near-front"){
+                        $hasNearFront = true;
+                        if (in_array($phoneme["length"], $vLengths) == false){
+                            array_push($vLengths, $phoneme["length"]);  
+                        }
+                    } else if ($phoneme["length"] == "central"){
+                        $hasCentral = true;
+                        if (in_array($phoneme["length"], $vLengths) == false){
+                            array_push($vLengths, $phoneme["length"]);  
+                        }
+                    } else if ($phoneme["length"] == "near-back"){
+                        $hasNearBack = true;
+                        if (in_array($phoneme["length"], $vLengths) == false){
+                            array_push($vLengths, $phoneme["length"]);  
+                        }
+                    } else if ($phoneme["length"] == "back"){
+                        $hasBack = true;
+                        if (in_array($phoneme["length"], $vLengths) == false){
+                            array_push($vLengths, $phoneme["length"]);  
+                        }
+                    }
+
+                    if($phoneme["height"] == "close"){
+                        $hasClose = true;
+                        if (in_array($phoneme["height"], $vHeights) == false){
+                            array_push($vHeights, $phoneme["height"]);  
+                        }
+                    } else if ($phoneme["height"] == "near-close"){
+                        $hasNearClose = true;
+                        if (in_array($phoneme["height"], $vHeights) == false){
+                            array_push($vHeights, $phoneme["height"]);  
+                        }
+                    } else if ($phoneme["height"] == "close-mid"){
+                        $hasCloseMid = true;
+                        if (in_array($phoneme["height"], $vHeights) == false){
+                            array_push($vHeights, $phoneme["height"]);  
+                        }
+                    } else if ($phoneme["height"] == "mid"){
+                        $hasMid = true;
+                        if (in_array($phoneme["height"], $vHeights) == false){
+                            array_push($vHeights, $phoneme["height"]);  
+                        }
+                    } else if ($phoneme["height"] == "open-mid"){
+                        $hasOpenMid = true;
+                        if (in_array($phoneme["height"], $vHeights) == false){
+                            array_push($vHeights, $phoneme["height"]);  
+                        }
+                    } else if ($phoneme["height"] == "near-open"){
+                        $hasNearOpen = true;
+                        if (in_array($phoneme["height"], $vHeights) == false){
+                            array_push($vHeights, $phoneme["height"]);  
+                        }
+                    } else if ($phoneme["height"] == "open"){
+                        $hasOpen = true;
+                        if (in_array($phoneme["height"], $vHeights) == false){
+                            array_push($vHeights, $phoneme["height"]);  
+                        }
+                    }
+                }
             }
         ?>
+
+        <div id="currentPhoneme">
+            test
+        </div>
+
+        <br>
 
         <script>
         <?php //php to javascript array for names
@@ -395,6 +466,8 @@
                 </thead>
                 <tbody>
                     <?php
+                    $cPlaces = orderForIPAChart("CP", $cPlaces);
+
                     if($hasPlosive == true) {
                         echo '<tr> <th scope="row">Plosive</th>';
                         foreach($cPlaces as $place){
@@ -456,40 +529,129 @@
             </table>
         </div>
 
+        <br>
+
+        <!-- vowel table -->
+        <div class="rounded-3 fs-4 text-white" style="background-color: #2c3034; padding: 20px;">
+            <table class="table table-dark table-bordered table-sm" style="font-size: 15px;">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <?php
+                            if($hasFront == true) echo '<th scope="col" colspan="2">Front</th>';
+                            if($hasNearFront == true) echo '<th scope="col" colspan="2">Near-Front</th>';
+                            if($hasCentral == true) echo '<th scope="col" colspan="2">Central</th>';
+                            if($hasNearBack == true) echo '<th scope="col" colspan="2">Near-Back</th>';
+                            if($hasBack == true) echo '<th scope="col" colspan="2">Back</th>';
+                        ?>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php
+                    $vLengths = orderForIPAChart("VL", $vLengths);
+
+                    if($hasClose == true) {
+                        echo '<tr> <th scope="row">Close</th>';
+                        foreach($vLengths as $length){
+                            echo "<td id='close".$length."unroundedvowel'></td>";
+                            echo "<td id='close".$length."roundedvowel'></td>";
+                        }
+                    }
+                    if($hasNearClose == true) {
+                        echo '<tr> <th scope="row">Near-Close</th>';
+                        foreach($vLengths as $length){
+                            echo "<td id='near-close".$length."unroundedvowel'></td>";
+                            echo "<td id='near-close".$length."roundedvowel'></td>";
+                        }
+                    }
+                    if($hasCloseMid == true) {
+                        echo '<tr> <th scope="row">Close-Mid</th>';
+                        foreach($vLengths as $length){
+                            echo "<td id='close-mid".$length."unroundedvowel'></td>";
+                            echo "<td id='close-mid".$length."roundedvowel'></td>";
+                        }
+                    }
+                    if($hasMid == true) {
+                        echo '<tr> <th scope="row">Mid</th>';
+                        foreach($vLengths as $length){
+                            echo "<td id='mid".$length."unroundedvowel'></td>";
+                            echo "<td id='mid".$length."roundedvowel'></td>";
+                        }
+                    }
+                    if($hasOpenMid == true) {
+                        echo '<tr> <th scope="row">Open-Mid</th>';
+                        foreach($vLengths as $length){
+                            echo "<td id='open-mid".$length."unroundedvowel'></td>";
+                            echo "<td id='open-mid".$length."roundedvowel'></td>";
+                        }
+                    }
+                    if($hasNearOpen == true) {
+                        echo '<tr> <th scope="row">Near-Open</th>';
+                        foreach($vLengths as $length){
+                            echo "<td id='near-open".$length."unroundedvowel'></td>";
+                            echo "<td id='near-open".$length."roundedvowel'></td>";
+                        }
+                    }
+                    if($hasOpen == true) {
+                        echo '<tr> <th scope="row">Open</th>';
+                        foreach($vLengths as $length){
+                            echo "<td id='open".$length."unroundedvowel'></td>";
+                            echo "<td id='open".$length."roundedvowel'></td>";
+                        }
+                    }
+                    ?>
+                </tbody>
+            </table>
+        </div>
+
         <script>
-            // for (let key in jsCChartNames) {
-            //     let value = jsCChartNames[key];
-            //     console.log(key, value);
-            // }
             <?php
                 $cSymbolsByName = [];
                 foreach($cChartNames as $key => $value){
                     $tempSymbol = getSymbol("C", "$value");
                     $cSymbolsByName[$key] = $tempSymbol;
-                    //echo "\$symbolABC = '$tempsymbol';";
                 }
                 $phpCSymbolsByName = json_encode($cSymbolsByName);
-
                 echo "var jsCSymbolsByName = ". $phpCSymbolsByName . ";\n";
 
-                $symbolABC = getSymbol("C", "voiced alveolar plosive");
-                echo "\$symbolABC = '$symbolABC';";
+                $vSymbolsByName = [];
+                foreach($vChartNames as $key => $value){
+                    $tempSymbol = getSymbol("V", "$value");
+                    $vSymbolsByName[$key] = $tempSymbol;
+                }
+                $phpVSymbolsByName = json_encode($vSymbolsByName);
+                echo "var jsVSymbolsByName = ". $phpVSymbolsByName . ";\n";
+
+                // $symbolABC = getSymbol("C", "voiced alveolar plosive");
+                // echo "\$symbolABC = '$symbolABC';";
             ?>
-            //console.log(jsCSymbolsByName);
         </script>
+
         <script>
-
+            function showDisplay(key){
+                //alert(key);
+                $phonemeHTMLDisplay = '<div class="rounded-3 fs-4 text-white" style="background-color: #2c3034; padding: 20px;">'+key+'</div>';
+                $("#currentPhoneme").html($phonemeHTMLDisplay);
+            }
             $(document).ready(function(){
-                //$htmlABC = '<p>'+$symbolABC+'</p>';
-                //$("#voicedalveolarplosive").html($htmlABC);
-
                 for (let key in jsCSymbolsByName) {
                     let value = jsCSymbolsByName[key];
+                    let commandID = jsCChartNames[key];
 
                     $htmlTemp = '<p>'+value+'</p>';
                     $("#"+key+"").html($htmlTemp);
+                    //$("#"+key+"").attr('onclick', 'showDisplay("$commandID")');
+                    $("#"+key+"").click(function(){ showDisplay(commandID); });
+                }
 
-                    //console.log(key, value);
+                for (let key in jsVSymbolsByName) {
+                    let value = jsVSymbolsByName[key];
+                    let commandID = jsVChartNames[key];
+
+                    $htmlTemp = '<p>'+value+'</p>';
+                    $("#"+key+"").html($htmlTemp);
+                    //$("#"+key+"").attr('onclick', 'showDisplay("$commandID")');
+                    $("#"+key+"").click(function(){ showDisplay(commandID); });
                 }
             });
 
