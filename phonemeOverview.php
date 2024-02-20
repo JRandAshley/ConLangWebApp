@@ -112,6 +112,7 @@
                         echo "<form method='get' action='phonemeForm.php'>";
                             echo "<td>";
                             echo "<input type='submit' value='Edit'>";
+                            echo "<input type='hidden' name='phonemeType' value='C'>";
                             echo "<input type='hidden' name='effect' value='edit'>";
                             echo "<input type='hidden' name='phonemeID' value=".$phoneme["phonemeID"].">";
                             echo "</td>";
@@ -119,6 +120,7 @@
                         echo "<form method='get' action='phonemeForm.php'>";
                             echo "<td>";
                             echo "<input type='submit' value='Delete'>";
+                            echo "<input type='hidden' name='phonemeType' value='C'>";
                             echo "<input type='hidden' name='effect' value='delete'>";
                             echo "<input type='hidden' name='phonemeID' value=".$phoneme["phonemeID"].">";
                             echo "</td>";
@@ -165,6 +167,7 @@
                         echo "<form method='get' action='phonemeForm.php'>";
                             echo "<td>";
                             echo "<input type='submit' value='Edit'>";
+                            echo "<input type='hidden' name='phonemeType' value='V'>";
                             echo "<input type='hidden' name='effect' value='edit'>";
                             echo "<input type='hidden' name='phonemeID' value=".$phoneme["phonemeID"].">";
                             echo "</td>";
@@ -172,6 +175,7 @@
                         echo "<form method='get' action='phonemeForm.php'>";
                             echo "<td>";
                             echo "<input type='submit' value='Delete'>";
+                            echo "<input type='hidden' name='phonemeType' value='V'>";
                             echo "<input type='hidden' name='effect' value='delete'>";
                             echo "<input type='hidden' name='phonemeID' value=".$phoneme["phonemeID"].">";
                             echo "</td>";

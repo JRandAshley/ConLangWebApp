@@ -594,7 +594,7 @@
                         $symbol = getSymbol("V", $obj["PhonemeName"]);
 
                         echo <<<GFG
-                            <h1 class='display-3 text-primary'>Add a Vowel</h1>
+                            <h1 class='display-3 text-primary'>Edit this Vowel</h1>
                             <div class="rounded-3 fs-4 text-white" style="background-color: #2c3034; padding: 20px;">
                             <form method="post" action="phonemeSubmit.php">
                                 <input name='phonemeCategory' id='phonemeCategory' type='hidden' value='$phonemeCategory'></input>
