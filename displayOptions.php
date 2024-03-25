@@ -94,7 +94,63 @@
         "open back rounded vowel" => "&#594;"
     );
 
+    $diacriticSymbols = array(
+        "long" => "&#720;",
+        "half-long" => "&#721;",
+
+        "voiceless" => "&#805;",
+        "voiced" => "&#812;",
+        "aspirated" => "&#874;",
+        "more-rounded" => "&#825",
+        "less-rounded" => "&#796",
+        "advanced" => "&#799",
+        "retracted" => "&#800",
+        "centralized" => "&#776",
+        "mid-centralized" => "&#829",
+        "syllabic" => "&#809",
+        "non-syllabic" => "&#815",
+        "rhoticity" => "&#",//find
+        "breathy-voiced" => "&#804",
+        "creaky-voiced" => "&#816",
+        "linguolabial" => "&#828",
+        "labialized" => "&#",//find
+        "palatalized" => "&#",//find
+        "velarized" => "&#",//find
+        "pharyngealized" => "&#",//find
+        "velarized-or-pharyngealized" => "&#820",
+        "raised" => "&#797",
+        "lowered" => "&#798",
+        "advanced-tongue-root" => "&#792",
+        "retracted-tongue-root" => "&#793",
+        "dental" => "&#810",
+        "apical" => "&#826",
+        "laminal" => "&#827",
+        "nasalized" => "&#771",
+        "nasal-release" => "&#",//find
+        "lateral-release" => "&#",//find
+        "no-audible-release" => "&#"//find
+    );
+
     function getSymbol($type, $name) {
+        global $consonantIPASymbols;
+        global $vowelIPASymbols;
+        $symbol = "N/A";
+
+        if($type == "C"){
+            if(array_key_exists($name, $consonantIPASymbols)){
+                $symbol = $consonantIPASymbols[$name];
+            }
+        }
+        else if($type == "V"){
+            if(array_key_exists($name, $vowelIPASymbols)){
+                $symbol = $vowelIPASymbols[$name];
+            }
+        }
+
+        return $symbol;
+    }
+
+    function getAdvancedSymbol($type, $name, $diacritics) {
         global $consonantIPASymbols;
         global $vowelIPASymbols;
         $symbol = "N/A";

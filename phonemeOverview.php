@@ -36,6 +36,9 @@
                 $phonemeID = $obj['PhonemeID'];
                 $phonemeName = $obj['PhonemeName'];
                 $phonemeCategory = $obj['Category'];
+                $pronNotes = $obj['PronNotes'];
+                $usageNotes = $obj['UsageNotes'];
+                $modifiers = $obj['Modifiers'];
                 //consonant
                 $voicing = NULL;
                 $place = NULL;
@@ -55,6 +58,9 @@
                         "name" => $phonemeName,
                         "language"=> $languageID,
                         "category"=> $phonemeCategory,
+                        "pronNotes"=> $pronNotes,
+                        "usageNotes"=> $usageNotes,
+                        "modifiers"=> $modifiers,
                         "place"=> $place,
                         "manner"=> $manner,
                         "voicing"=> $voicing
@@ -70,6 +76,9 @@
                         "name" => $phonemeName,
                         "language"=> $languageID,
                         "category"=> $phonemeCategory,
+                        "pronNotes"=> $pronNotes,
+                        "usageNotes"=> $usageNotes,
+                        "modifiers"=> $modifiers,
                         "height"=> $height,
                         "length"=> $length,
                         "rounding"=> $rounding
@@ -95,6 +104,9 @@
         <th scope="col">Place</th>
         <th scope="col">Manner</th>
         <th scope="col">Voicing</th>
+        <th scope="col">Pronounciation</th>
+        <th scope="col">Usage</th>
+        <th scope="col">Modifications</th>
         <th scope="col"></th>
         <th scope="col"></th>
         </tr>
@@ -109,6 +121,9 @@
                         echo "<td>".$phoneme["place"]."</td>";
                         echo "<td>".$phoneme["manner"]."</td>";
                         echo "<td>".$phoneme["voicing"]."</td>";
+                        echo "<td>Pronounciation</td>";
+                        echo "<td>Usage</td>";
+                        echo "<td>Modifications</td>";
                         echo "<form method='get' action='phonemeForm.php'>";
                             echo "<td>";
                             echo "<input type='submit' value='Edit'>";
@@ -150,6 +165,9 @@
         <th scope="col">Height</th>
         <th scope="col">Length</th>
         <th scope="col">Rounding</th>
+        <th scope="col">Pronounciation</th>
+        <th scope="col">Usage</th>
+        <th scope="col">Modifications</th>
         <th scope="col"></th>
         <th scope="col"></th>
         </tr>
@@ -164,6 +182,9 @@
                         echo "<td>".$phoneme["height"]."</td>";
                         echo "<td>".$phoneme["length"]."</td>";
                         echo "<td>".$phoneme["rounding"]."</td>";
+                        echo "<td>Pronounciation</td>";
+                        echo "<td>Usage</td>";
+                        echo "<td>Modifications</td>";
                         echo "<form method='get' action='phonemeForm.php'>";
                             echo "<td>";
                             echo "<input type='submit' value='Edit'>";
@@ -410,202 +431,204 @@
             }
         ?>
 
-        <div id="currentPhoneme">
-            test
-        </div>
+        <div style="display: flex; width: 100%">
+            <div id="currentPhoneme" style="flex-grow: 1;">
+                <div class="rounded-3 fs-4 text-white" style="background-color: #2c3034; padding: 20px; margin: 5px;"></div>
+            </div>
 
-        <br>
+            <br>
 
-        <script>
-        <?php //php to javascript array for names
-            $cChartNames = [];
-            $vChartNames = [];
+            <script>
+            <?php //php to javascript array for names
+                $cChartNames = [];
+                $vChartNames = [];
 
-            foreach($displayPhonemes as $phoneme){
-                if ($phoneme["category"] == "C"){
-                    $tempName = $phoneme["name"];
-                    $tempNameCompress = str_replace(' ', '', $tempName);
-                    $cChartNames[$tempNameCompress] = $tempName;
-                    //array_push($cChartNames, $tempNameCompress);
-                }
-                else if ($phoneme["category"] == "V"){
-                    $tempName = $phoneme["name"];
-                    $tempNameCompress = str_replace(' ', '', $tempName);
-                    $vChartNames[$tempNameCompress] = $tempName;
-                    //array_push($vChartNames, $tempNameCompress);
-                }
-            };
+                foreach($displayPhonemes as $phoneme){
+                    if ($phoneme["category"] == "C"){
+                        $tempName = $phoneme["name"];
+                        $tempNameCompress = str_replace(' ', '', $tempName);
+                        $cChartNames[$tempNameCompress] = $tempName;
+                        //array_push($cChartNames, $tempNameCompress);
+                    }
+                    else if ($phoneme["category"] == "V"){
+                        $tempName = $phoneme["name"];
+                        $tempNameCompress = str_replace(' ', '', $tempName);
+                        $vChartNames[$tempNameCompress] = $tempName;
+                        //array_push($vChartNames, $tempNameCompress);
+                    }
+                };
 
-            $phpCChartNames = json_encode($cChartNames);
-            $phpVChartNames = json_encode($vChartNames);
+                $phpCChartNames = json_encode($cChartNames);
+                $phpVChartNames = json_encode($vChartNames);
 
-            echo "var jsCChartNames = ". $phpCChartNames . ";\n";
-            echo "var jsVChartNames = ". $phpVChartNames . ";\n";
-        ?>
+                echo "var jsCChartNames = ". $phpCChartNames . ";\n";
+                echo "var jsVChartNames = ". $phpVChartNames . ";\n";
+            ?>
 
-        //console.log(jsCChartNames);
-        //console.log(jsVChartNames);
-        </script>
+            //console.log(jsCChartNames);
+            //console.log(jsVChartNames);
+            </script>
 
-        <!-- constant table -->
-        <div class="rounded-3 fs-4 text-white" style="background-color: #2c3034; padding: 20px;">
-            <table class="table table-dark table-bordered table-sm" style="font-size: 15px;">
-                <thead>
-                    <tr>
-                        <th scope="col">#</th>
+            <!-- constant table -->
+            <div class="rounded-3 fs-4 text-white" style="background-color: #2c3034; flex-grow: 1; padding: 20px; margin: 5px;">
+                <table class="table table-dark table-bordered table-sm" style="font-size: 15px;">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <?php
+                                if($hasBilabial == true) echo '<th scope="col" colspan="2">Bilabial</th>';
+                                if($hasLabiodental == true) echo '<th scope="col" colspan="2">Labiodental</th>';
+                                if($hasDental == true) echo '<th scope="col" colspan="2">Dental</th>';
+                                if($hasAlveolar == true) echo '<th scope="col" colspan="2">Alveolar</th>';
+                                if($hasPostalveolar == true) echo '<th scope="col" colspan="2">Postalveolar</th>';
+                                if($hasRetroflex == true) echo '<th scope="col" colspan="2">Retroflex</th>';
+                                if($hasPalatal == true) echo '<th scope="col" colspan="2">Palatal</th>';
+                                if($hasVelar == true) echo '<th scope="col" colspan="2">Velar</th>';
+                                if($hasUvular == true) echo '<th scope="col" colspan="2">Uvular</th>';
+                                if($hasPharyngeal == true) echo '<th scope="col" colspan="2">Pharyngeal</th>';
+                                if($hasGlottal == true) echo '<th scope="col" colspan="2">Glottal</th>';
+                            ?>
+                        </tr>
+                    </thead>
+                    <tbody>
                         <?php
-                            if($hasBilabial == true) echo '<th scope="col" colspan="2">Bilabial</th>';
-                            if($hasLabiodental == true) echo '<th scope="col" colspan="2">Labiodental</th>';
-                            if($hasDental == true) echo '<th scope="col" colspan="2">Dental</th>';
-                            if($hasAlveolar == true) echo '<th scope="col" colspan="2">Alveolar</th>';
-                            if($hasPostalveolar == true) echo '<th scope="col" colspan="2">Postalveolar</th>';
-                            if($hasRetroflex == true) echo '<th scope="col" colspan="2">Retroflex</th>';
-                            if($hasPalatal == true) echo '<th scope="col" colspan="2">Palatal</th>';
-                            if($hasVelar == true) echo '<th scope="col" colspan="2">Velar</th>';
-                            if($hasUvular == true) echo '<th scope="col" colspan="2">Uvular</th>';
-                            if($hasPharyngeal == true) echo '<th scope="col" colspan="2">Pharyngeal</th>';
-                            if($hasGlottal == true) echo '<th scope="col" colspan="2">Glottal</th>';
+                        $cPlaces = orderForIPAChart("CP", $cPlaces);
+
+                        if($hasPlosive == true) {
+                            echo '<tr> <th scope="row">Plosive</th>';
+                            foreach($cPlaces as $place){
+                                echo "<td id='voiceless".$place."plosive'></td>";
+                                echo "<td id='voiced".$place."plosive'></td>";
+                            }
+                        }
+                        if($hasNasal == true) {
+                            echo '<tr> <th scope="row">Nasal</th>';
+                            foreach($cPlaces as $place){
+                                echo "<td id='voiceless".$place."nasal'></td>";
+                                echo "<td id='voiced".$place."nasal'></td>";
+                            }
+                        }
+                        if($hasTrill == true) {
+                            echo '<tr> <th scope="row">Trill</th>';
+                            foreach($cPlaces as $place){
+                                echo "<td id='voiceless".$place."trill'></td>";
+                                echo "<td id='voiced".$place."trill'></td>";
+                            }
+                        }
+                        if($hasTapOrFlap == true) {
+                            echo '<tr> <th scope="row">Tap or Flap</th>';
+                            foreach($cPlaces as $place){
+                                echo "<td id='voiceless".$place."taporflap'></td>";
+                                echo "<td id='voiced".$place."taporflap'></td>";
+                            }
+                        }
+                        if($hasFricative == true) {
+                            echo '<tr> <th scope="row">Fricative</th>';
+                            foreach($cPlaces as $place){
+                                echo "<td id='voiceless".$place."fricative'></td>";
+                                echo "<td id='voiced".$place."fricative'></td>";
+                            }
+                        }
+                        if($hasLateralFricative == true) {
+                            echo '<tr> <th scope="row">Lateral Fricative</th>';
+                            foreach($cPlaces as $place){
+                                echo "<td id='voiceless".$place."lateralfricative'></td>";
+                                echo "<td id='voiced".$place."lateralfricative'></td>";
+                            }
+                        }
+                        if($hasApproximant == true) {
+                            echo '<tr> <th scope="row">Approximant</th>';
+                            foreach($cPlaces as $place){
+                                echo "<td id='voiceless".$place."approximant'></td>";
+                                echo "<td id='voiced".$place."approximant'></td>";
+                            }
+                        }
+                        if($hasLateralApproximant == true) {
+                            echo '<tr> <th scope="row">Lateral Approximant</th>';
+                            foreach($cPlaces as $place){
+                                echo "<td id='voiceless".$place."lateralapproximant'></td>";
+                                echo "<td id='voiced".$place."lateralapproximant'></td>";
+                            }
+                        }
                         ?>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php
-                    $cPlaces = orderForIPAChart("CP", $cPlaces);
+                    </tbody>
+                </table>
+            </div>
 
-                    if($hasPlosive == true) {
-                        echo '<tr> <th scope="row">Plosive</th>';
-                        foreach($cPlaces as $place){
-                            echo "<td id='voiceless".$place."plosive'></td>";
-                            echo "<td id='voiced".$place."plosive'></td>";
-                        }
-                    }
-                    if($hasNasal == true) {
-                        echo '<tr> <th scope="row">Nasal</th>';
-                        foreach($cPlaces as $place){
-                            echo "<td id='voiceless".$place."nasal'></td>";
-                            echo "<td id='voiced".$place."nasal'></td>";
-                        }
-                    }
-                    if($hasTrill == true) {
-                        echo '<tr> <th scope="row">Trill</th>';
-                        foreach($cPlaces as $place){
-                            echo "<td id='voiceless".$place."trill'></td>";
-                            echo "<td id='voiced".$place."trill'></td>";
-                        }
-                    }
-                    if($hasTapOrFlap == true) {
-                        echo '<tr> <th scope="row">Tap or Flap</th>';
-                        foreach($cPlaces as $place){
-                            echo "<td id='voiceless".$place."taporflap'></td>";
-                            echo "<td id='voiced".$place."taporflap'></td>";
-                        }
-                    }
-                    if($hasFricative == true) {
-                        echo '<tr> <th scope="row">Fricative</th>';
-                        foreach($cPlaces as $place){
-                            echo "<td id='voiceless".$place."fricative'></td>";
-                            echo "<td id='voiced".$place."fricative'></td>";
-                        }
-                    }
-                    if($hasLateralFricative == true) {
-                        echo '<tr> <th scope="row">Lateral Fricative</th>';
-                        foreach($cPlaces as $place){
-                            echo "<td id='voiceless".$place."lateralfricative'></td>";
-                            echo "<td id='voiced".$place."lateralfricative'></td>";
-                        }
-                    }
-                    if($hasApproximant == true) {
-                        echo '<tr> <th scope="row">Approximant</th>';
-                        foreach($cPlaces as $place){
-                            echo "<td id='voiceless".$place."approximant'></td>";
-                            echo "<td id='voiced".$place."approximant'></td>";
-                        }
-                    }
-                    if($hasLateralApproximant == true) {
-                        echo '<tr> <th scope="row">Lateral Approximant</th>';
-                        foreach($cPlaces as $place){
-                            echo "<td id='voiceless".$place."lateralapproximant'></td>";
-                            echo "<td id='voiced".$place."lateralapproximant'></td>";
-                        }
-                    }
-                    ?>
-                </tbody>
-            </table>
-        </div>
+            <br>
 
-        <br>
-
-        <!-- vowel table -->
-        <div class="rounded-3 fs-4 text-white" style="background-color: #2c3034; padding: 20px;">
-            <table class="table table-dark table-bordered table-sm" style="font-size: 15px;">
-                <thead>
-                    <tr>
-                        <th scope="col">#</th>
+            <!-- vowel table -->
+            <div class="rounded-3 fs-4 text-white" style="background-color: #2c3034; flex-grow: 1; padding: 20px; margin: 5px;">
+                <table class="table table-dark table-bordered table-sm" style="font-size: 15px;">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <?php
+                                if($hasFront == true) echo '<th scope="col" colspan="2">Front</th>';
+                                if($hasNearFront == true) echo '<th scope="col" colspan="2">Near-Front</th>';
+                                if($hasCentral == true) echo '<th scope="col" colspan="2">Central</th>';
+                                if($hasNearBack == true) echo '<th scope="col" colspan="2">Near-Back</th>';
+                                if($hasBack == true) echo '<th scope="col" colspan="2">Back</th>';
+                            ?>
+                        </tr>
+                    </thead>
+                    <tbody>
                         <?php
-                            if($hasFront == true) echo '<th scope="col" colspan="2">Front</th>';
-                            if($hasNearFront == true) echo '<th scope="col" colspan="2">Near-Front</th>';
-                            if($hasCentral == true) echo '<th scope="col" colspan="2">Central</th>';
-                            if($hasNearBack == true) echo '<th scope="col" colspan="2">Near-Back</th>';
-                            if($hasBack == true) echo '<th scope="col" colspan="2">Back</th>';
-                        ?>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php
-                    $vLengths = orderForIPAChart("VL", $vLengths);
+                        $vLengths = orderForIPAChart("VL", $vLengths);
 
-                    if($hasClose == true) {
-                        echo '<tr> <th scope="row">Close</th>';
-                        foreach($vLengths as $length){
-                            echo "<td id='close".$length."unroundedvowel'></td>";
-                            echo "<td id='close".$length."roundedvowel'></td>";
+                        if($hasClose == true) {
+                            echo '<tr> <th scope="row">Close</th>';
+                            foreach($vLengths as $length){
+                                echo "<td id='close".$length."unroundedvowel'></td>";
+                                echo "<td id='close".$length."roundedvowel'></td>";
+                            }
                         }
-                    }
-                    if($hasNearClose == true) {
-                        echo '<tr> <th scope="row">Near-Close</th>';
-                        foreach($vLengths as $length){
-                            echo "<td id='near-close".$length."unroundedvowel'></td>";
-                            echo "<td id='near-close".$length."roundedvowel'></td>";
+                        if($hasNearClose == true) {
+                            echo '<tr> <th scope="row">Near-Close</th>';
+                            foreach($vLengths as $length){
+                                echo "<td id='near-close".$length."unroundedvowel'></td>";
+                                echo "<td id='near-close".$length."roundedvowel'></td>";
+                            }
                         }
-                    }
-                    if($hasCloseMid == true) {
-                        echo '<tr> <th scope="row">Close-Mid</th>';
-                        foreach($vLengths as $length){
-                            echo "<td id='close-mid".$length."unroundedvowel'></td>";
-                            echo "<td id='close-mid".$length."roundedvowel'></td>";
+                        if($hasCloseMid == true) {
+                            echo '<tr> <th scope="row">Close-Mid</th>';
+                            foreach($vLengths as $length){
+                                echo "<td id='close-mid".$length."unroundedvowel'></td>";
+                                echo "<td id='close-mid".$length."roundedvowel'></td>";
+                            }
                         }
-                    }
-                    if($hasMid == true) {
-                        echo '<tr> <th scope="row">Mid</th>';
-                        foreach($vLengths as $length){
-                            echo "<td id='mid".$length."unroundedvowel'></td>";
-                            echo "<td id='mid".$length."roundedvowel'></td>";
+                        if($hasMid == true) {
+                            echo '<tr> <th scope="row">Mid</th>';
+                            foreach($vLengths as $length){
+                                echo "<td id='mid".$length."unroundedvowel'></td>";
+                                echo "<td id='mid".$length."roundedvowel'></td>";
+                            }
                         }
-                    }
-                    if($hasOpenMid == true) {
-                        echo '<tr> <th scope="row">Open-Mid</th>';
-                        foreach($vLengths as $length){
-                            echo "<td id='open-mid".$length."unroundedvowel'></td>";
-                            echo "<td id='open-mid".$length."roundedvowel'></td>";
+                        if($hasOpenMid == true) {
+                            echo '<tr> <th scope="row">Open-Mid</th>';
+                            foreach($vLengths as $length){
+                                echo "<td id='open-mid".$length."unroundedvowel'></td>";
+                                echo "<td id='open-mid".$length."roundedvowel'></td>";
+                            }
                         }
-                    }
-                    if($hasNearOpen == true) {
-                        echo '<tr> <th scope="row">Near-Open</th>';
-                        foreach($vLengths as $length){
-                            echo "<td id='near-open".$length."unroundedvowel'></td>";
-                            echo "<td id='near-open".$length."roundedvowel'></td>";
+                        if($hasNearOpen == true) {
+                            echo '<tr> <th scope="row">Near-Open</th>';
+                            foreach($vLengths as $length){
+                                echo "<td id='near-open".$length."unroundedvowel'></td>";
+                                echo "<td id='near-open".$length."roundedvowel'></td>";
+                            }
                         }
-                    }
-                    if($hasOpen == true) {
-                        echo '<tr> <th scope="row">Open</th>';
-                        foreach($vLengths as $length){
-                            echo "<td id='open".$length."unroundedvowel'></td>";
-                            echo "<td id='open".$length."roundedvowel'></td>";
+                        if($hasOpen == true) {
+                            echo '<tr> <th scope="row">Open</th>';
+                            foreach($vLengths as $length){
+                                echo "<td id='open".$length."unroundedvowel'></td>";
+                                echo "<td id='open".$length."roundedvowel'></td>";
+                            }
                         }
-                    }
-                    ?>
-                </tbody>
-            </table>
+                        ?>
+                    </tbody>
+                </table>
+            </div>
         </div>
 
         <script>
@@ -635,7 +658,7 @@
             function showDisplay(key){
                 $symbolToDisplay = jsCSymbolsByName[key.replace(/\s/g, '')];
                 if($symbolToDisplay == undefined){$symbolToDisplay = jsVSymbolsByName[key.replace(/\s/g, '')];}
-                $phonemeHTMLDisplay = '<div class="rounded-3 fs-4 text-white" style="background-color: #2c3034; padding: 20px;"><h1>'+$symbolToDisplay+'</h1> <p>'+key+'</p></div>';
+                $phonemeHTMLDisplay = '<div class="rounded-3 fs-4 text-white" style="background-color: #2c3034; padding: 20px; margin: 5px;"><h1>'+$symbolToDisplay+'</h1> <p>'+key+'</p></div>';
                 $("#currentPhoneme").html($phonemeHTMLDisplay);
             }
             $(document).ready(function(){

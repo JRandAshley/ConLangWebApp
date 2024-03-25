@@ -47,7 +47,7 @@
     }
     </script>
 
-    <div class="rounded-3 fs-4 text-white" style="background-color: #2c3034; padding: 20px; <?php if($_GET["phonemeType"] == "V"){echo "display: none;";} ?>" name="consonantChart" id="consonantChart">
+    <div class="rounded-3 fs-4 text-white" style="background-color: #2c3034; padding: 20px; <?php if($_GET["phonemeType"] == "V"){echo "display: none;";}if($_GET["effect"] == "delete"){echo "display: none;";} ?>" name="consonantChart" id="consonantChart">
         <table class="table table-dark table-bordered table-sm" style="font-size: 15px;">
             <thead>
                 <tr>
@@ -272,7 +272,7 @@
 
 
     
-    <div class="rounded-3 fs-4 text-white" style="background-color: #2c3034; padding: 20px; <?php if($_GET["phonemeType"] == "C"){echo "display: none;";} ?>" name="vowelChart" id="vowelChart">
+    <div class="rounded-3 fs-4 text-white" style="background-color: #2c3034; padding: 20px; <?php if($_GET["phonemeType"] == "C"){echo "display: none;";}if($_GET["effect"] == "delete"){echo "display: none;";} ?>" name="vowelChart" id="vowelChart">
         <table class="table table-dark table-bordered table-sm" style="font-size: 15px;">
             <thead>
                 <tr>
