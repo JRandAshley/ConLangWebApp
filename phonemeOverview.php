@@ -16,8 +16,19 @@
     <title>Phoneme Overview Page</title>
     <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="css/conlang.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-    <script scr="js/jquery-3.7.1.min.js"></script>
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script> -->
+    <script src="js/jquery-3.7.1.min.js"></script>
+    <script>
+        // $(document).ready(function(){
+        //         if (jQuery) {  
+        //         // jQuery is loaded  
+        //         alert("Yeah!");
+        //         } else {
+        //         // jQuery is not loaded
+        //         alert("Doesn't Work");
+        //         }
+        //     });
+    </script>
 </head>
     <body class="container" style="background-color:black; margin-top:20px;">
         <?php
@@ -89,128 +100,7 @@
         }
         ?>
 
-        <h1 class="display-5 text-primary">Consonants</h1>
-        <form method="get" action="phonemeForm.php">
-            <input type="submit" class="btn btn-outline-primary" name="submit" value="Create New Consonant" style="margin: 10px;">
-            <input type="hidden" name="phonemeType" value="C">
-            <input type="hidden" name="effect" value="add">
-        </form>
-
-        <table class="table table-dark table-striped table-hover">
-        <thead>
-        <tr>
-        <th scope="col">Symbol</th>
-        <th scope="col">Name</th>
-        <th scope="col">Place</th>
-        <th scope="col">Manner</th>
-        <th scope="col">Voicing</th>
-        <th scope="col">Pronounciation</th>
-        <th scope="col">Usage</th>
-        <th scope="col">Modifications</th>
-        <th scope="col"></th>
-        <th scope="col"></th>
-        </tr>
-        <tbody>
-        <?php
-            foreach($displayPhonemes as $phoneme){
-                if($phoneme["category"] == "C"){
-                    $symbol = getSymbol("C", $phoneme["name"]);
-                    echo "<tr>";
-                        echo "<td>". $symbol ."</td>";
-                        echo "<td>".$phoneme["name"]."</td>";
-                        echo "<td>".$phoneme["place"]."</td>";
-                        echo "<td>".$phoneme["manner"]."</td>";
-                        echo "<td>".$phoneme["voicing"]."</td>";
-                        echo "<td>Pronounciation</td>";
-                        echo "<td>Usage</td>";
-                        echo "<td>Modifications</td>";
-                        echo "<form method='get' action='phonemeForm.php'>";
-                            echo "<td>";
-                            echo "<input type='submit' value='Edit'>";
-                            echo "<input type='hidden' name='phonemeType' value='C'>";
-                            echo "<input type='hidden' name='effect' value='edit'>";
-                            echo "<input type='hidden' name='phonemeID' value=".$phoneme["phonemeID"].">";
-                            echo "</td>";
-                        echo "</form>";
-                        echo "<form method='get' action='phonemeForm.php'>";
-                            echo "<td>";
-                            echo "<input type='submit' value='Delete'>";
-                            echo "<input type='hidden' name='phonemeType' value='C'>";
-                            echo "<input type='hidden' name='effect' value='delete'>";
-                            echo "<input type='hidden' name='phonemeID' value=".$phoneme["phonemeID"].">";
-                            echo "</td>";
-                        echo "</form>";
-                    echo "</tr>";
-                }
-            }
-        ?>
-        </tbody>
-        </table>
-
-
-        <hr>
-
-        <h1 class="display-5 text-primary">Vowels</h1>
-        <form method="get" action="phonemeForm.php">
-            <input type="submit" class="btn btn-outline-primary" name="submit" value="Create New Vowel" style="margin: 10px;">
-            <input type="hidden" name="phonemeType" value="V">
-            <input type="hidden" name="effect" value="add">
-        </form>
-
-        <table class="table table-dark table-striped table-hover">
-        <thead>
-        <tr>
-        <th scope="col">Symbol</th>
-        <th scope="col">Name</th>
-        <th scope="col">Height</th>
-        <th scope="col">Length</th>
-        <th scope="col">Rounding</th>
-        <th scope="col">Pronounciation</th>
-        <th scope="col">Usage</th>
-        <th scope="col">Modifications</th>
-        <th scope="col"></th>
-        <th scope="col"></th>
-        </tr>
-        <tbody>
-        <?php
-            foreach($displayPhonemes as $phoneme){
-                if($phoneme["category"] == "V"){
-                    $symbol = getSymbol("V", $phoneme["name"]);
-                    echo "<tr>";
-                        echo "<td>". $symbol ."</td>";
-                        echo "<td>".$phoneme["name"]."</td>";
-                        echo "<td>".$phoneme["height"]."</td>";
-                        echo "<td>".$phoneme["length"]."</td>";
-                        echo "<td>".$phoneme["rounding"]."</td>";
-                        echo "<td>Pronounciation</td>";
-                        echo "<td>Usage</td>";
-                        echo "<td>Modifications</td>";
-                        echo "<form method='get' action='phonemeForm.php'>";
-                            echo "<td>";
-                            echo "<input type='submit' value='Edit'>";
-                            echo "<input type='hidden' name='phonemeType' value='V'>";
-                            echo "<input type='hidden' name='effect' value='edit'>";
-                            echo "<input type='hidden' name='phonemeID' value=".$phoneme["phonemeID"].">";
-                            echo "</td>";
-                        echo "</form>";
-                        echo "<form method='get' action='phonemeForm.php'>";
-                            echo "<td>";
-                            echo "<input type='submit' value='Delete'>";
-                            echo "<input type='hidden' name='phonemeType' value='V'>";
-                            echo "<input type='hidden' name='effect' value='delete'>";
-                            echo "<input type='hidden' name='phonemeID' value=".$phoneme["phonemeID"].">";
-                            echo "</td>";
-                        echo "</form>";
-                    echo "</tr>";
-                }
-            }
-        ?>
-        </tbody>
-        </table>
-
-        <hr>
-
-        <?php
+        <?php //create arrays based on phonemes
             $cChartPhonemes = array(); // php array of consonants
             $vChartPhonemes = array(); // php array of vowels
 
@@ -431,14 +321,7 @@
             }
         ?>
 
-        <div style="display: flex; width: 100%">
-            <div id="currentPhoneme" style="flex-grow: 1;">
-                <div class="rounded-3 fs-4 text-white" style="background-color: #2c3034; padding: 20px; margin: 5px;"></div>
-            </div>
-
-            <br>
-
-            <script>
+        <script>
             <?php //php to javascript array for names
                 $cChartNames = [];
                 $vChartNames = [];
@@ -464,11 +347,11 @@
                 echo "var jsCChartNames = ". $phpCChartNames . ";\n";
                 echo "var jsVChartNames = ". $phpVChartNames . ";\n";
             ?>
+        </script>
 
-            //console.log(jsCChartNames);
-            //console.log(jsVChartNames);
-            </script>
+        <!-- -------------------------------------------------------------------------------------- -->
 
+        <div style="display: flex; width: 100%">
             <!-- constant table -->
             <div class="rounded-3 fs-4 text-white" style="background-color: #2c3034; flex-grow: 1; padding: 20px; margin: 5px;">
                 <table class="table table-dark table-bordered table-sm" style="font-size: 15px;">
@@ -629,10 +512,138 @@
                     </tbody>
                 </table>
             </div>
+            <div id="currentPhoneme" style="flex-grow: 1;">
+                <div class="rounded-3 fs-4 text-white" style="background-color: #2c3034; padding: 20px; margin: 5px;"></div>
+            </div>
         </div>
 
-        <script>
+        <!-- --------------------------------------------------------------------------------------- -->
+
+        <div>
+            <h1 class="display-5 text-primary">Consonants</h1>
+            <form method="get" action="phonemeForm.php">
+                <input type="submit" class="btn btn-outline-primary" name="submit" value="Create New Consonant" style="margin: 10px;">
+                <input type="hidden" name="phonemeType" value="C">
+                <input type="hidden" name="effect" value="add">
+            </form>
+
+            <table class="table table-dark table-striped table-hover">
+            <thead>
+            <tr>
+            <th scope="col">Symbol</th>
+            <th scope="col">Name</th>
+            <th scope="col">Place</th>
+            <th scope="col">Manner</th>
+            <th scope="col">Voicing</th>
+            <th scope="col">Pronounciation</th>
+            <th scope="col">Usage</th>
+            <th scope="col">Modifications</th>
+            <th scope="col"></th>
+            <th scope="col"></th>
+            </tr>
+            <tbody>
             <?php
+                foreach($displayPhonemes as $phoneme){
+                    if($phoneme["category"] == "C"){
+                        $symbol = getSymbol("C", $phoneme["name"]);
+                        echo "<tr>";
+                            echo "<td>". $symbol ."</td>";
+                            echo "<td>".$phoneme["name"]."</td>";
+                            echo "<td>".$phoneme["place"]."</td>";
+                            echo "<td>".$phoneme["manner"]."</td>";
+                            echo "<td>".$phoneme["voicing"]."</td>";
+                            echo "<td>&#x1F4C4;</td>";
+                            echo "<td>&#x1F4C4;</td>";
+                            echo "<td>&#x1F4C4;</td>";
+                            echo "<form method='get' action='phonemeForm.php'>";
+                                echo "<td>";
+                                echo "<input type='submit' value='Edit'>";
+                                echo "<input type='hidden' name='phonemeType' value='C'>";
+                                echo "<input type='hidden' name='effect' value='edit'>";
+                                echo "<input type='hidden' name='phonemeID' value=".$phoneme["phonemeID"].">";
+                                echo "</td>";
+                            echo "</form>";
+                            echo "<form method='get' action='phonemeForm.php'>";
+                                echo "<td>";
+                                echo "<input type='submit' value='Delete'>";
+                                echo "<input type='hidden' name='phonemeType' value='C'>";
+                                echo "<input type='hidden' name='effect' value='delete'>";
+                                echo "<input type='hidden' name='phonemeID' value=".$phoneme["phonemeID"].">";
+                                echo "</td>";
+                            echo "</form>";
+                        echo "</tr>";
+                    }
+                }
+            ?>
+            </tbody>
+            </table>
+
+
+            <hr>
+
+            <h1 class="display-5 text-primary">Vowels</h1>
+            <form method="get" action="phonemeForm.php">
+                <input type="submit" class="btn btn-outline-primary" name="submit" value="Create New Vowel" style="margin: 10px;">
+                <input type="hidden" name="phonemeType" value="V">
+                <input type="hidden" name="effect" value="add">
+            </form>
+
+            <table class="table table-dark table-striped table-hover">
+            <thead>
+            <tr>
+            <th scope="col">Symbol</th>
+            <th scope="col">Name</th>
+            <th scope="col">Height</th>
+            <th scope="col">Length</th>
+            <th scope="col">Rounding</th>
+            <th scope="col">Pronounciation</th>
+            <th scope="col">Usage</th>
+            <th scope="col">Modifications</th>
+            <th scope="col"></th>
+            <th scope="col"></th>
+            </tr>
+            <tbody>
+            <?php
+                foreach($displayPhonemes as $phoneme){
+                    if($phoneme["category"] == "V"){
+                        $symbol = getSymbol("V", $phoneme["name"]);
+                        echo "<tr>";
+                            echo "<td>". $symbol ."</td>";
+                            echo "<td>".$phoneme["name"]."</td>";
+                            echo "<td>".$phoneme["height"]."</td>";
+                            echo "<td>".$phoneme["length"]."</td>";
+                            echo "<td>".$phoneme["rounding"]."</td>";
+                            echo "<td>&#x1F4C4;</td>";
+                            echo "<td>&#x1F4C4;</td>";
+                            echo "<td>&#x1F4C4;</td>";
+                            echo "<form method='get' action='phonemeForm.php'>";
+                                echo "<td>";
+                                echo "<input type='submit' value='Edit'>";
+                                echo "<input type='hidden' name='phonemeType' value='V'>";
+                                echo "<input type='hidden' name='effect' value='edit'>";
+                                echo "<input type='hidden' name='phonemeID' value=".$phoneme["phonemeID"].">";
+                                echo "</td>";
+                            echo "</form>";
+                            echo "<form method='get' action='phonemeForm.php'>";
+                                echo "<td>";
+                                echo "<input type='submit' value='Delete'>";
+                                echo "<input type='hidden' name='phonemeType' value='V'>";
+                                echo "<input type='hidden' name='effect' value='delete'>";
+                                echo "<input type='hidden' name='phonemeID' value=".$phoneme["phonemeID"].">";
+                                echo "</td>";
+                            echo "</form>";
+                        echo "</tr>";
+                    }
+                }
+            ?>
+            </tbody>
+            </table>
+        </div>
+
+        <!-- ----------------------------------------------------------------------------------------- -->
+
+        <script>
+            <?php //make IPA charts clickable
                 $cSymbolsByName = [];
                 foreach($cChartNames as $key => $value){
                     $tempSymbol = getSymbol("C", "$value");
@@ -682,18 +693,8 @@
                     $("#"+key+"").click(function(){ showDisplay(commandID); });
                 }
             });
-
-            // $(document).ready(function(){
-            //     if (jQuery) {  
-            //     // jQuery is loaded  
-            //     alert("Yeah!");
-            //     } else {
-            //     // jQuery is not loaded
-            //     alert("Doesn't Work");
-            //     }
-            // });
         </script>
 
-        <script scr="js/bootstrap.bundle.min.js"></script>
+        <script src="js/bootstrap.bundle.min.js"></script>
     </body>
 </html>

@@ -436,12 +436,82 @@
                             <option value="voiceless">Voiceless</option>
                         </select>
         
+                        <hr>
+
+                        <label for="pronNotes">Pronounciation Notes:</label>
+                        <textarea type="text" name="pronNotes" id="pronNotes" maxlength="20"></textarea>
+
                         </br>
+
+                        <label for="usageNotes">Usage Notes:</label>
+                        <textarea type="text" name="usageNotes" id="usageNotes" maxlength="20"></textarea>
+
+                        <hr>
+
+                        <p1>Modifiers</p1></br>
+                        <input type="checkbox" id="voiceless" name="voiceless" value="TEST123">
+                        <label for="testmod">TEST123</label></br>
+
+                        <input type="checkbox" id="voiced" name="voiced" value="TEST123">
+                        <label for="testmod">TEST123</label></br>
+
+                        <input type="checkbox" id="aspirated" name="aspirated" value="TEST123">
+                        <label for="testmod">TEST123</label></br>
+
+                        <input type="checkbox" id="moreRounded" name="moreRounded" value="TEST123">
+                        <label for="testmod">TEST123</label></br>
+
+                        <input type="checkbox" id="lessRounded" name="lessRounded" value="TEST123">
+                        <label for="testmod">TEST123</label></br>
+
+                        <input type="checkbox" id="advanced" name="advanced" value="TEST123">
+                        <label for="testmod">TEST123</label></br>
+
+                        <input type="checkbox" id="retracted" name="retracted" value="TEST123">
+                        <label for="testmod">TEST123</label></br>
+
+                        <input type="checkbox" id="retracted" name="retracted" value="TEST123">
+                        <label for="testmod">TEST123</label></br>
+
+                        <input type="checkbox" id="retracted" name="retracted" value="TEST123">
+                        <label for="testmod">TEST123</label></br>
+
+                        <input type="checkbox" id="retracted" name="retracted" value="TEST123">
+                        <label for="testmod">TEST123</label></br>
+
+                        <input type="checkbox" id="retracted" name="retracted" value="TEST123">
+                        <label for="testmod">TEST123</label></br>
+
+                        <input type="checkbox" id="retracted" name="retracted" value="TEST123">
+                        <label for="testmod">TEST123</label></br>
+
+                        <input type="checkbox" id="retracted" name="retracted" value="TEST123">
+                        <label for="testmod">TEST123</label></br>
+
+                        <input type="checkbox" id="retracted" name="retracted" value="TEST123">
+                        <label for="testmod">TEST123</label></br>
+
+                        <input type="checkbox" id="retracted" name="retracted" value="TEST123">
+                        <label for="testmod">TEST123</label></br>
+
+                        <input type="checkbox" id="retracted" name="retracted" value="TEST123">
+                        <label for="testmod">TEST123</label></br>
+
+                        <input type="checkbox" id="retracted" name="retracted" value="TEST123">
+                        <label for="testmod">TEST123</label></br>
+
+                        <input type="checkbox" id="retracted" name="retracted" value="TEST123">
+                        <label for="testmod">TEST123</label></br>
+
+                        <input type="checkbox" id="retracted" name="retracted" value="TEST123">
+                        <label for="testmod">TEST123</label></br>
+
+                        <input type="checkbox" id="retracted" name="retracted" value="TEST123">
+                        <label for="testmod">TEST123</label></br>
         
                         <input type="submit" name="submit" value="Submit">
                     </form>
                     </div>
-                    <button onclick="setInputs('C','uvular','lateral fricative','voiceless')">Click me</button>
                 GFG;
             }
             elseif($type == "V") {
